@@ -7,14 +7,13 @@ sia = SentimentIntensityAnalyzer()
 def analyze_sentiment(text):
     sentiment_scores = sia.polarity_scores(text)
     compound_score = sentiment_scores['compound']
-    if compound_score >= 0.05:
-        sentiment = "Positive"
-    elif compound_score <= -0.05:
-        sentiment = "Negative"
-    else:
+    if compound_score <= 0.05 and compound_score >= -0.05:
         sentiment = "Neutral"
-
-    return sentiment, sentiment_scores
+    elif compound_score >= 0.05:
+        sentiment = "Positive"
+    else: 
+        sentiment = "Negative"
+    return sentiment,sentiment_scores
 
 sample_text = "I love this product! It's amazing."
 sentiment, scores = analyze_sentiment(sample_text)
